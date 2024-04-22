@@ -1,0 +1,13 @@
+[package]
+name = "berttest"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+download-libtorch = ["tch/download-libtorch"]
+
+# test here
+[dependencies]
+tch = "0.14.0"
+rust-bert = { version = "0.22.0", features = ["download-libtorch"] }
