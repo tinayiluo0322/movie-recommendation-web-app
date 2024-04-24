@@ -2,21 +2,32 @@ use rust_bert::pipelines::common::ModelType;
 use rust_bert::pipelines::translation::{
     Language, TranslationConfig, TranslationModel, TranslationModelBuilder,
 };
+use rust_bert::pipelines::sentence_embeddings::SentenceEmbeddingsBuilder;
 use tch::Device;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let model = TranslationModelBuilder::new()
-        .with_device(Device::cuda_if_available())
-        .with_model_type(ModelType::Marian)
-        .with_source_languages(vec![Language::English])
-        .with_target_languages(vec![Language::French])
-        .create_model()?;
+    let model = SentenceEmbeddingsBuilder::local("model/")
+    .with_device(tch::Device::cuda_if_available())
+    .create_model()?;
 
-    let input = ["This is a sentence to be translated"];
+    let sentences = ["This is an example sentence", "Each sentence is converted"];
+    let embeddings = model.encode(&sentences)?;
 
-    let output = model.translate(&input, None, Language::French)?;
+    println!("{:?}", embeddings);
 
-    println!("{:?}", output);
+    // let model = SentenceEmbeddingsBuilder::remote(
+    //     SentenceEmbeddingsModelType::AllMiniLmL12V2
+    // ).create_model()?;
+
+    // let sentences = [
+    //     "this is an example sentence",
+    //     "each sentence is converted"
+    // ];
+
+    // let output = model.encode(&sentences);
+
+    // println!("{:?}", output);
+
 
     Ok(())
 }
