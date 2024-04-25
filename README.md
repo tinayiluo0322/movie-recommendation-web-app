@@ -1,5 +1,5 @@
 # Current Way to Run
 
-cargo build --features "download-libtorch"
-export .env
-cargo run --bin <bin_name>
+1. cargo build --features "download-libtorch"
+2. export .env through set method
+3. cargo run --bin <bin_name>
