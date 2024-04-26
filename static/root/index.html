@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        body,
+        h1,
+        h2,
+        h3,
+        p,
+        a {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("imgs/movie.jpg");
+            background-size: cover;
+            background-position: center;
+            color: #FBEEE6;
+            text-align: left;
+            padding: 20px;
+            display: block;
+            /* Using block layout */
+            position: relative;
+            /* Needed for absolute positioning of children */
+            height: 500px;
+            font-family: 'Varela', sans-serif;
+        }
+
+        .hero-content {
+            position: absolute;
+            /* Absolutely positioned content */
+            top: 50%;
+            /* Align to the middle vertically */
+            left: 50%;
+            /* Align to the middle horizontally */
+            transform: translate(-50%, -50%);
+            /* Centering trick */
+            width: 80%;
+            /* Adjust the width as needed */
+            padding: 20px;
+            line-height: 2;
+            /* Optional: add padding if needed */
+        }
+
+
+
+        .button {
+            display: inline-block;
+            /* Correct display type for the button */
+            background-color: #212F3C;
+            color: white;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            box-shadow: none;
+            outline: none;
+            margin-top: 30px;
+        }
+
+        .button:hover {
+            background-color: #A93226;
+        }
+
+        /* Larger select dropdown */
+        select {
+            padding: 5px;
+            /* Add padding to increase the size */
+            font-size: 16px;
+            /* Optional: increase font size */
+        }
+
+        /* Larger label text */
+        label {
+            font-size: 20px;
+            /* Adjust font size as needed */
+        }
+
+        /* Larger textarea */
+        textarea {
+            width: 50%;
+            height: 20px;
+            /* Adjust the height as needed */
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Movie Recommendation</h1>
+            <form action="/submit-your-choice" method="post">
+                <label for="choices">Select a movie category:</label>
+                <br>
+                <select id="choices" name="choices">
+                    <option value="Action">Action</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Animation">Animation</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Family">Family</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Film-noir">Film-noir</option>
+                    <option value="History">History</option>
+                    <option value="Horror">"Horror</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Romance">Romance</option>
+                    <option value="SciFi">SciFi</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="War">War</option>
+                </select>
+                <br>
+                <!-- Added line break -->
+                <label for="description">Describe the movie you want to watch:</label>
+                <br>
+                <textarea id="description" name="description" placeholder="Type your description here..."></textarea>
+                <br> <!-- Added line break -->
+                <a href="finder.html" class="button">Pick Your Movies</a>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

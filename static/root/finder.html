@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Car Finder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        body,
+        h1,
+        h2,
+        h3,
+        p,
+        a {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Button Styles */
+        .button {
+            display: inline-block;
+            background-color: #212F3C;
+            color: white;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            box-shadow: none;
+            outline: none;
+            margin-top: 30px;
+        }
+
+        .button:hover {
+            background-color: #A93226;
+        }
+
+        /* Hero Container Styles */
+        .hero-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgb(1, 31, 41);
+            padding: 20px;
+            color: white;
+            height: 600px;
+            /* Adjust height as needed */
+        }
+
+        .text-container {
+            flex: 1;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 2;
+            left: 10px;
+        }
+
+        .text-primary {
+            color: #f05812;
+            font-size: 24px;
+            /* Adjust size as needed */
+        }
+
+        .text-secondary {
+            font-weight: bold;
+            font-size: 40px;
+            /* Adjust size as needed */
+        }
+
+        .image-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-container img {
+            width: 90%;
+            /* Adjust based on your preference */
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Container Styles */
+        .container {
+            margin-left: 30%;
+            margin-right: 30%;
+            padding-top: 20px;
+            height: 800px;
+            text-align: center;
+            line-height: 3;
+            color: #212F3C;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #212F3C;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .dropdown-row {
+            display: flex;
+            justify-content: safe;
+            margin-bottom: 30px;
+            margin-left: 0px;
+            height: 50px;
+            width: 700px;
+            text-align: center;
+        }
+
+        /* Table Styles */
+        table {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+            text-align: left;
+            border: 1px solid transparent;
+            /* Transparent border */
+        }
+
+        th,
+        td {
+            padding: 8px;
+            border: 1px solid transparent;
+            /* Transparent border */
+            background-color: transparent;
+            /* Transparent background */
+        }
+
+        th {
+            background-color: transparent;
+            color: #212F3C;
+            /* Maintain the text color for visibility */
+        }
+
+        tr:nth-child(even) {
+            background-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero-container">
+        <div class="text-container">
+            <div class="text-primary">You are watching...tonight</div>
+        </div>
+
+        <!-- Table -->
+        <div style="margin-top: 20px;">
+            <table id="data-table">
+                <tr>
+                    <th>Description</th>
+                </tr>
+                <!-- Rows will be added here dynamically -->
+            </table>
+        </div>
+
+        <div class="image-container">
+            <img src="imgs/Movie_Time.jpeg" alt="Descriptive Alt Text">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('https://your-api-url.com/data')  // Your API URL
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById('data-table');
+                    data.forEach(item => {
+                        const row = table.insertRow();
+                        const cell = row.insertCell();
+                        cell.textContent = `${item.make} ${item.model}, ${item.year}, $${item.price}`;
+                    });
+                })
+                .catch(error => console.error('Error loading the data:', error));
+        });
+    </script>
+
+    <!-- Back Button -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button class="button" onclick="history.back()">Go Back</button>
+    </div>
+
+    <body>
+
+</html>

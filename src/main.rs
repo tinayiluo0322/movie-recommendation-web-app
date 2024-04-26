@@ -76,7 +76,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             // have to sure your route goes first before serving other files
             .route("/coinflip", web::get().to(coinflip)) // Route to the coinflip function
-            .service(Files::new("/", "./static/").index_file("index.html"))
+            .service(Files::new("/", "./static/root/").index_file("index.html"))
     })
     .bind(("0.0.0.0", 50505))?
     .client_request_timeout(Duration::from_secs(120)) // Set client timeout to 2 minutes
