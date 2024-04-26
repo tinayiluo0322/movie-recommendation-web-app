@@ -1,5 +1,6 @@
 use actix_files::Files;
 use actix_web::test::ok_service;
+use actix_web::post;
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 use qdrant_client::prelude::*;
 use qdrant_client::qdrant::{value::Kind, Struct};
@@ -20,13 +21,15 @@ use tch::Device;
 // top 5
 const SEARCH_LIMIT: u64 = 5;
 
-async fn coinflip() -> impl Responder {
-    // first do fake query
-    let query: String = "detective".to_string();
-    // load the model maybe a better place to put this
-    // this would need to be changed as I'm outputting an html file but in reality we would
-    // jsut show the reuslt to the user on the same page hopefully
-    let message = match infer(query.to_string()).await {
+#[derive(serde::Deserialize)]
+struct MovieDescription {
+    description: String,
+}
+
+#[post("/movie")]
+async fn movie(description: web::Form<MovieDescription>) -> impl Responder {
+    let query = description.description.clone();
+    let message = match infer(query).await {
         Ok(inference_result) => {
             let mut message = String::new();
             for (key, value) in inference_result {
@@ -74,12 +77,10 @@ async fn infer(prompt: String) -> Result<HashMap<String, Value>, Box<dyn std::er
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
-            // have to sure your route goes first before serving other files
-            .route("/coinflip", web::get().to(coinflip)) // Route to the coinflip function
+            .service(movie)
             .service(Files::new("/", "./static/root/").index_file("index.html"))
     })
-    .bind(("0.0.0.0", 50505))?
-    .client_request_timeout(Duration::from_secs(120)) // Set client timeout to 2 minutes
+    .bind(("0.0.0.0", 50506))?
     .run()
     .await
 }
