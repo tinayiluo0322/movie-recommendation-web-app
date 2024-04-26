@@ -13,7 +13,8 @@ use serde::Deserialize;
 
 use std::collections::HashMap;
 use std::fs::File;
-use std::io::{BufRead, BufReader, Write};
+use std::io::{BufRead, BufReader};
+use std::io::{self, Write};
 
 #[derive(Debug, serde::Deserialize)]
 struct CohereResponse {
@@ -132,7 +133,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             stdout.flush()?;
         }
     }
-    write!("starting upload!");
+    write!(io::stdout(), "starting upload!").unwrap(); // Add `.unwrap()` to handle potential errors
     qdrant_client
         .upsert_points_batch_blocking(&collection_name, None, points, None, 200)
         .await?;

@@ -1,22 +1,19 @@
 use actix_files::Files;
-use actix_web::test::ok_service;
+
 use actix_web::post;
-use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{web, App, HttpResponse, HttpServer, Responder};
 use qdrant_client::prelude::*;
-use qdrant_client::qdrant::{value::Kind, Struct};
+
 use qdrant_client::qdrant::{
-    vectors_config::Config, CreateCollection, Distance, FieldType, PointId, PointStruct, Value,
-    VectorParams, Vectors, VectorsConfig,
+    Value,
 };
-use rust_bert::pipelines::common::ModelType;
+
 use rust_bert::pipelines::sentence_embeddings::SentenceEmbeddingsBuilder;
-use rust_bert::pipelines::translation::{
-    Language, TranslationConfig, TranslationModel, TranslationModelBuilder,
-};
+
 use std::collections::HashMap;
-use std::time::Duration;
-use std::{convert::Infallible, io::Write, path::PathBuf};
-use tch::Device;
+
+
+
 
 // top 5
 const SEARCH_LIMIT: u64 = 5;
@@ -89,6 +86,7 @@ async fn movie(description: web::Form<MovieDescription>) -> impl Responder {
                         "star" => "Main Stars",
                         _ => "Unknown",
                     };
+                    let value = value.as_str().unwrap().replace("\n", "<br>");
                     message.push_str(&format!(
                         "<tr><td><strong>{}</strong> ({})</td><td>{}</td></tr>",
                         field_description, key, value
@@ -104,6 +102,9 @@ async fn movie(description: web::Form<MovieDescription>) -> impl Responder {
             message.push_str("</div>"); // End of image container
 
             message.push_str("</div>"); // End of table-image-container
+
+            // Background Image
+            message.push_str("<img src='/imgs/Movie_background.png' alt='Movie Background Image' style='width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: -1;'>");
 
             // Go back button
             message.push_str("<button class='go-back-button' onclick='history.back()'>Go Back</button>");
@@ -145,7 +146,7 @@ async fn infer(prompt: String) -> Result<HashMap<String, Value>, Box<dyn std::er
         .await?;
 
     let found_point = result.result.into_iter().next().unwrap();
-    let mut payload = found_point.payload;
+    let payload = found_point.payload;
     print!("{:?}", payload);
     Ok(payload)
 }
