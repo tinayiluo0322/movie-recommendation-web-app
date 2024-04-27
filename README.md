@@ -29,7 +29,7 @@ Example: user input keywords (input and output)
 
 ## Architecture
 
-![5beda4c3b237292b2d4303386af6f21c](/uploads/e4de533e7277c4cb5945ec901fefb6bf/5beda4c3b237292b2d4303386af6f21c.JPG)
+![4ff0ebdef50aef930c2715eb3a8deb9f](/uploads/b8f2c06a9a0d9e0678b5c0c8c9a40654/4ff0ebdef50aef930c2715eb3a8deb9f.JPG)
 
 ## Dataset Background
 
