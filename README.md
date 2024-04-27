@@ -105,12 +105,12 @@ Execute `cargo run --bin <bin_name>` to test the model locally.
 ### Data Ingestion
 
 1. **Modify `setup_final.rs`**:
-   - This script reads movie records from a CSV file, computes sentence embeddings for movie descriptions using Rust BERT, and stores the embeddings along with other movie data in a Qdrant database.
+   - This script reads movie records from a JSONL file, computes sentence embeddings for movie descriptions using Rust BERT, and stores the embeddings along with other movie data in a Qdrant database.
   
    **Stages and Usage:**
-   1. **Reading Movie Records from CSV:**
+   1. **Reading Movie Records from JSONL:**
       - Defines a struct `MovieRecord` representing movie data.
-      - Provides a function `read_movies` to read movie records from a CSV file and return a vector of `MovieRecord` structs.
+      - Provides a function `read_movies` to read movie records from a JSONL file and return a vector of `MovieRecord` structs.
    2. **Storing Data in Qdrant:**
       - Defines structs `QdrantPayload` and `MovieRecordFields` to structure data for Qdrant.
       - Provides an asynchronous function `store_in_qdrant` to store movie data and embeddings in Qdrant.
@@ -120,7 +120,7 @@ Execute `cargo run --bin <bin_name>` to test the model locally.
       - Upserts the payload into the Qdrant collection.
    3. **Main Function:**
       - Uses `tokio::main` attribute to run the asynchronous main function.
-      - Loads movie records from the jsonl file using `read_movies`.
+      - Loads movie records from the JSONL file using `read_movies`.
       - Sets up the model for sentence embeddings using Rust BERT.
       - Iterates over each movie record:
         - Computes embeddings for the movie description.
