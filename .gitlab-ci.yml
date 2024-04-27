@@ -20,7 +20,6 @@ build-test:
     - export PATH="$HOME/.cargo/bin:$PATH" 
     - rustc --version
     - zig version
-    - cargo lambda --version 
     - make lint 
     - make format 
     - make test 
