@@ -3,33 +3,39 @@ name = "berttest"
 version = "0.1.0"
 edition = "2021"
 
-[[bin]]
-name = "website"
-path = "src/main.rs"
+# remvoed bins for eeasier deployment
+# [[bin]]
+# name = "website"
+# path = "src/main.rs"
 
 # [[bin]]
 # name = "test_model"
- #path = "src/test_model.rs"
+# path = "src/test_model.rs"
 
 # [[bin]]
 # name = "test_model_1encode"
 # path = "src/test_model_1encode.rs"
 
-[[bin]]
-name = "qdrant"
-path = "src/setup_final.rs"
+# this is not needed anymore so no need
+# [[bin]]
+# name = "qdrant"
+# path = "src/setup_final.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-[features]
-download-libtorch = ["tch/download-libtorch"]
+# [features]
+# download-libtorch = ["tch/download-libtorch"]
 
 #test
 [dependencies]
 #Task 1
-tch = "0.14.0"
-rust-bert = { version = "0.22.0", features = ["download-libtorch"] }
+# tch = "0.13.0"
+# rust-bert = { version = "0.22.0", features = ["download-libtorch"] }
+# rust-bert = "0.21.0"
+# fastembed = { git = "https://github.com/jcorrie/fastembed-rs", branch= "custom-model" }
+llm = { git = "https://github.com/rustformers/llm" , branch = "main" }
 csv = "1.1"  # Check for the latest version on crates.io
-qdrant-client = "1.8.0"
+qdrant-client = "1.9.0"
+reqwest = { version = "0.12", features = ["json"] }
 actix-web = "4"
 actix-files = "0.6.0"
 serde = { version = "1", features = ["derive"] }

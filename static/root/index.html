@@ -29,32 +29,23 @@
             text-align: left;
             padding: 20px;
             display: block;
-            /* Using block layout */
             position: relative;
-            /* Needed for absolute positioning of children */
             height: 500px;
             font-family: 'Varela', sans-serif;
         }
 
         .hero-content {
             position: absolute;
-            /* Absolutely positioned content */
             top: 50%;
-            /* Align to the middle vertically */
             left: 50%;
-            /* Align to the middle horizontally */
             transform: translate(-50%, -50%);
-            /* Centering trick */
             width: 80%;
-            /* Adjust the width as needed */
             padding: 20px;
             line-height: 2;
-            /* Optional: add padding if needed */
         }
 
         .button {
             display: inline-block;
-            /* Correct display type for the button */
             background-color: #212F3C;
             color: white;
             padding: 15px 30px;
@@ -73,20 +64,40 @@
             background-color: #A93226;
         }
 
-        /* Larger label text */
         label {
             font-size: 20px;
-            /* Adjust font size as needed */
         }
 
-        /* Larger textarea */
         textarea {
             width: 80%;
             height: 200px;
-            /* Adjust the height as needed */
             padding: 10px;
             font-size: 16px;
             margin-top: 20px;
+        }
+
+        #why-choose-us {
+            background-image: url("imgs/tt.jpg");
+            background-size: cover;
+            background-position: center;
+            padding: 50px 0;
+            text-align: center;
+            color: black
+        }
+
+        #why-choose-us h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        #why-choose-us h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        #why-choose-us p {
+            font-size: 18px;
+            margin-bottom: 30px;
         }
     </style>
 </head>
@@ -103,9 +114,52 @@
                 <textarea id="description" name="description" placeholder="Type your description here..."></textarea>
                 <br>
                 <button type="submit" class="button">Get Recommendation</button>
+                <button type="button" id="generateTextBtn" class="button">Generate Description</button>
             </form>
         </div>
     </div>
+
+    <!-- Section Two -->
+    <section id="why-choose-us">
+        <div>
+            <h2>Missed a movie?</h2>
+            <div>
+                <h3>Describe, not remember</h3>
+                <p>Just describe the movie, and we will match it to the current movies</p>
+            </div>
+            <div>
+                <h3>Movie Discovered</h3>
+                <p>Find movies from 2020-2023</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+
+
+        generateTextBtn.addEventListener("click", async () => {
+            const generateTextBtn = document.getElementById("generateTextBtn");
+            const descriptionTextArea = document.getElementById("description");
+            const description = descriptionTextArea.value; // Get the value from the textarea
+            console.log(description);
+            try {
+                const response = await fetch("/generate-text", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        "description": description, 
+                    }),
+                });
+                console.log(response);
+                const text = await response.text();
+                descriptionTextArea.value = text;
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        });
+    </script>
 
 </body>
 

@@ -1,0 +1,105 @@
+#################
+## build stage ##
+#################
+FROM rust:latest-bullseye as builder
+# Install packages with cleanup
+RUN apt-get update \
+    && apt-get install -y \
+    build-essential \
+    wget \
+    unzip \
+    curl \
+    pkg-config \
+    libssl-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+# RUN apk update && \
+#     apk add --no-cache \
+#     build-base \
+#     wget \
+#     unzip \
+#     curl \
+#     pkgconfig \
+#     alpine-sdk \ 
+#     openssl-dev 
+
+# Install Rust 1.71.1
+# RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+#     && $HOME/.cargo/bin/rustup install 1.77.1 \
+#     && $HOME/.cargo/bin/rustup default 1.77.1
+# # Set environment variables for Ruut
+# ENV PATH="/root/.cargo/bin:${PATH}"
+# # Setup Rust components and tools
+# RUN rustup component add \
+#     rls \
+#     rust-analysis \
+#     rust-src \
+#     rustfmt \
+#     clippy \
+#     && cargo install \
+#     cargo-edit \
+#     cargo-watch
+
+# Set working directory
+# WORKDIR /code
+
+# FROM messense/rust-musl-cross:x86_64-musl as builder
+
+WORKDIR /code
+# ADD --chown=rust:rust . ./
+
+# RUN apt-get update \
+#     && apt-get install -y \
+#     build-essential \
+#     wget \
+#     unzip \
+#     curl \
+#     pkg-config \
+#     libssl-dev \
+#     && apt-get clean \
+#     && rm -rf /var/lib/apt/lists/*
+
+ENV LIBTORCH_VERSION=2.0.1
+RUN wget https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-2.0.1%2Bcpu.zip \
+    && unzip libtorch-cxx11-abi-shared-with-deps-${LIBTORCH_VERSION}+cpu.zip -d /code \
+    && rm libtorch-cxx11-abi-shared-with-deps-${LIBTORCH_VERSION}+cpu.zip
+# Set environment variables for libtorch
+ENV LIBTORCH /code/libtorch
+ENV LD_LIBRARY_PATH /code/libtorch/lib:$LD_LIBRARY_PATH
+# Download crates-io index and fetch dependency code.
+# This step avoids needing to spend time on every build downloading the index
+# which can take a long time within the docker context. Docker will cache it.
+RUN USER=root cargo init
+COPY Cargo.toml Cargo.toml
+
+# copy app files
+COPY src src
+
+# copy static files
+COPY static static
+
+# copy model files 
+COPY model model
+
+# compile app
+RUN cargo build
+
+## run stage ##
+###############
+FROM docker.io/rust:latest
+WORKDIR /app
+
+# copy server binary from build stage
+COPY --from=builder /code/target/x86_64-unknown-linux-musl/release/berttest berttest
+
+# copy static files
+COPY --from=builder /code/static static
+
+# copy docker files 
+COPY --from=builder /code/model model
+
+# indicate what port the server is running on
+EXPOSE 50505
+
+# run server
+CMD [ "/app/berttest" ]

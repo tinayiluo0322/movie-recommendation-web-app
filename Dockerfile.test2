@@ -1,0 +1,27 @@
+FROM rust:latest
+
+WORKDIR /server-in-container
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV RUSTUP_HOME=/usr/local/rustup \
+    CARGO_HOME=/usr/local/cargo \
+    PATH=/usr/local/cargo/bin:$PATH \
+    RUST_VERSION=1.77.1
+
+RUN apt-get update
+RUN apt-get install pkg-config wget libssl-dev unzip -yq
+
+RUN wget https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-2.0.1%2Bcpu.zip
+RUN unzip libtorch-cxx11-abi-shared-with-deps-2.0.1+cpu.zip
+ENV LIBTORCH=/server-in-container/libtorch
+ENV LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
+
+# Omit this argument for CPU build
+# ARG TORCH_CUDA_VERSION="cu113"
+
+COPY Cargo.toml /server-in-container/Cargo.toml
+COPY Cargo.lock /server-in-container/Cargo.lock
+COPY src /server-in-container/src
+
+RUN cargo build --release
