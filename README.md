@@ -89,8 +89,8 @@ Utilizing the Sentence Embeddings pipeline from Rust-Bert to:
 
 ### Testing the Model Locally:
 - Two test scripts are provided for local testing:
-  - `test_model.rs`: Reads descriptions from a CSV file, encodes them into sentence embeddings using the Rust BERT library, and prints out the embeddings.
-  - `test_model_1encode.rs`: Reads descriptions from a CSV file, encodes the first description into sentence embeddings, and prints out the embedding for the first description.
+  - `src/test_model.rs`: Reads descriptions from a CSV file, encodes them into sentence embeddings using the Rust BERT library, and prints out the embeddings.
+  - `src/test_model_1encode.rs`: Reads descriptions from a CSV file, encodes the first description into sentence embeddings, and prints out the embedding for the first description.
 - These scripts define a struct `MovieRecord` and provide a function `read_descriptions` to load descriptions from a CSV file.
 - The main function sets up the model for sentence embeddings using Rust BERT, computes embeddings, and prints the results.
 
@@ -104,7 +104,7 @@ Execute `cargo run --bin <bin_name>` to test the model locally.
 
 ### Data Ingestion
 
-1. **Modify `setup_final.rs`**:
+1. **Modify `src/setup_final.rs`**:
    - This script reads movie records from a JSONL file, computes sentence embeddings for movie descriptions using Rust BERT, and stores the embeddings along with other movie data in a Qdrant database.
   
    **Stages and Usage:**
