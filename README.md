@@ -7,7 +7,7 @@
 
 The goal of this project is to deploy an open-source model via a web service developed in Rust, aimed at constructing a movie recommendation system. Users have the flexibility to input either a movie description directly into a text box or provide keywords, facilitating autofill functionality for the system. Following user input, the system provides recommendations for the optimal movie choice, enriched with relevant movie information such as descriptions, release years, directors, ratings, and more.
 
-Throughout the project lifecycle, our objectives include containerizing the service for seamless deployment on Kubernetes. We achieve this by implementing a CI/CD pipeline and streamlining the build, test, and deployment processes. Furthermore, we focus on enhancing the system's robustness by incorporating monitoring, metrics collection, and comprehensive documentation.
+Throughout the project lifecycle, our objectives include containerizing the service for seamless deployment with AWS ECS and Fargate. We achieve this by implementing a CI/CD pipeline and streamlining the build, test, and deployment processes. Furthermore, we focus on enhancing the system's robustness by incorporating monitoring, metrics collection, and comprehensive documentation.
 
 For a detailed explanation of the project's functionality and architecture, please refer to the provided YouTube video.
 
