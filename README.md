@@ -17,7 +17,7 @@ Example: user input full description (input and output)
 
 ![Screenshot_2024-04-27_at_12.30.50_PM](/uploads/723f6c8017beaeb8a081fc594e2fdca0/Screenshot_2024-04-27_at_12.30.50_PM.png)
 
-![Screenshot_2024-04-27_at_12.32.05_PM](/uploads/91d5dd9df9370be86da78af7d9c71fb6/Screenshot_2024-04-27_at_12.32.05_PM.png)
+![Screenshot_2024-04-27_at_12.32.20_PM](/uploads/350189faca2db29dd955fd5c55bf2be2/Screenshot_2024-04-27_at_12.32.20_PM.png)
 
 
 Example: user input keywords (input and output)
