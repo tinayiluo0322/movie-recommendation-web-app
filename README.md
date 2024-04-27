@@ -49,7 +49,6 @@ This dataset offers valuable insights into movie trends, genre preferences, and 
 - Filtered movies released between 2020 and 2023.
 - Retained relevant columns: movie ID, name, year, runtime, genre, rating, description, director, star, and votes.
 The cleaned dataset comprises 33,402 rows and is stored as "combined_data.csv".
-Dependencies Installation and Setup (Tina)
 
 ## Dependencies Installation and Setup 
 
