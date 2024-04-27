@@ -17,10 +17,6 @@ build-test:
     - wget https://ziglang.org/download/${ZIG_VERSION}/zig-linux-x86_64-${ZIG_VERSION}.tar.xz
     - tar -xf zig-linux-x86_64-${ZIG_VERSION}.tar.xz  
     - mv zig-linux-x86_64-${ZIG_VERSION}/* /usr/local/bin
-    - wget https://github.com/cargo-lambda/cargo-lambda/releases/download/$CARGO_LAMBDA_VERSION/cargo-lambda-$CARGO_LAMBDA_VERSION.x86_64-unknown-linux-musl.tar.gz -O /tmp/cargo-lambda.tar.gz
-    - tar -xzvf /tmp/cargo-lambda.tar.gz -C /tmp
-    - mv /tmp/cargo-lambda ~/.cargo/bin/cargo-lambda
-
     - export PATH="$HOME/.cargo/bin:$PATH" 
     - rustc --version
     - zig version
@@ -42,6 +38,6 @@ build-test:
 #   script:
 #     - pip install awscli
 #     - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $EC || exit 1  # Login to ECR (exit on failure)
-#     - docker build -t week7 . || exit 1    # Build image (exit on failure)
-#     - docker tag week7:latest $ECR || exit 1   # Tag image (exit on failure)
+#     - make deploy 
+#     - docker tag cloudfinal:latest $ECR || exit 1   # Tag image (exit on failure)
 #     - docker push $ECR || exit 1    # Push image (exit on failure)

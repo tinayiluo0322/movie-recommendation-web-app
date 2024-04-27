@@ -22,12 +22,12 @@ test:
 	cargo test --quiet
 
 watch:
-	cargo lambda watch
+	cargo run
 
 build: 
-	cargo lambda build --release 
+	cargo build --release 
 
 deploy:
-	cargo lambda deploy  
+	docker build --progress=plain -t cloudfinal .    
 
 all: format lint test 

@@ -13,9 +13,19 @@ For a detailed explanation of the project's functionality and architecture, plea
 
 ### Web App Functionality (Deliveries)
 
-<website screenshot delivery>  4 pics 
 Example: user input full description (input and output)
+
+![Screenshot_2024-04-27_at_12.30.50_PM](/uploads/723f6c8017beaeb8a081fc594e2fdca0/Screenshot_2024-04-27_at_12.30.50_PM.png)
+
+![Screenshot_2024-04-27_at_12.32.05_PM](/uploads/91d5dd9df9370be86da78af7d9c71fb6/Screenshot_2024-04-27_at_12.32.05_PM.png)
+
+
 Example: user input keywords (input and output)
+
+![Screenshot_2024-04-27_at_12.31.57_PM](/uploads/bcf3549b9486314bd0fb743e003bf286/Screenshot_2024-04-27_at_12.31.57_PM.png)
+
+![Screenshot_2024-04-27_at_12.32.05_PM](/uploads/a588206f197329a8afd201b3a38863b3/Screenshot_2024-04-27_at_12.32.05_PM.png)
+
 
 ### Architecture
 
@@ -127,7 +137,8 @@ Execute `cargo run --bin <bin_name>` to test the model locally.
 4. **Open Qdrant Dashboard**:
    - Check the test collection in the Qdrant dashboard. The Qdrant cluster should now have a collection filled with associated embeddings or "points".
 
-<Screenshot from Qdrant Cluster> (Jeremy)
+![Screenshot_2024-04-27_at_12.36.34_PM](/uploads/83738728f8ad88b2cf551ab37cf2fbb6/Screenshot_2024-04-27_at_12.36.34_PM.png)
+
 
 ### Generating Descriptions & Recommendations
 
@@ -190,8 +201,13 @@ This frontend implementation aims to provide an intuitive and seamless user expe
 
 1. **Create VPC Group:** Establish a VPC group to expose the Rust Actix website to the public, enabling external access.
 
+    ![Screenshot_2024-04-27_at_1.29.11_PM](/uploads/6cba3967c4ff1b02e540149a0bbfb77d/Screenshot_2024-04-27_at_1.29.11_PM.png)
+
 2. **Deploy with ECS via Fargate:**
    - **Cluster Creation:** Initialize an ECS cluster and specify deployment with Fargate to ensure efficient resource allocation.
+
+    ![Screenshot_2024-04-27_at_1.28.20_PM](/uploads/39c58a9a74b7eb016f96f4b8c083dccf/Screenshot_2024-04-27_at_1.28.20_PM.png)
+
    - **Task Definition:** Define a task to run within the cluster. 
      - Specify memory and CPU requirements for optimal model inference speed.
      - Set up health check commands to ensure container health.
@@ -199,17 +215,22 @@ This frontend implementation aims to provide an intuitive and seamless user expe
      - Link the public Docker image to the task for deployment.
      - Add a security group rule allowing inbound traffic on port 50505 from any IP address to enable public access.
      - Specify system architecture and environment variables required by the container.
+
+     ![Screenshot_2024-04-27_at_1.30.20_PM](/uploads/83a4c214c3ef6f350b1aa355b0a4ac1a/Screenshot_2024-04-27_at_1.30.20_PM.png)
+
+
    - **Execution Role:** Utilize a default execution role for the task as no interaction with other services is necessary.
 
 3. **Deployment and Continuous Deployment:**
    - After creating the task definition, deploy on demand by deploying the task definition to the cluster, creating a task within the cluster.
    - Continuous deployment is enabled as the task is linked to the latest Docker image pushed in the Docker registry or ECR private registry.
 
-<Image from AWS kubernetes/ECS & Dockerfiles>
+![Screenshot_2024-04-27_at_1.23.09_PM](/uploads/217faaff8edd21ccdead8947880218b0/Screenshot_2024-04-27_at_1.23.09_PM.png)
+
 
 ### Monitoring and Metrics
 
-<AWS cloudwatch image>
+![Screenshot_2024-04-27_at_1.16.29_PM](/uploads/692dce06e8eae6566738ec874562a110/Screenshot_2024-04-27_at_1.16.29_PM.png)
 
 ### Continuous Integration and Continuous Deployment (CI/CD) Pipeline
 
