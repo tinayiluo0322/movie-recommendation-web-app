@@ -3,6 +3,10 @@
 
 # Movie Recommendation Web App
 
+# Demo Video 
+
+[Demo Video - Movie Recommendation Web App](https://youtu.be/S7IOLuUNLdo)
+
 ## Goal
 
 The goal of this project is to deploy an open-source model via a web service developed in Rust, aimed at constructing a movie recommendation system. Users have the flexibility to input either a movie description directly into a text box or provide keywords, facilitating autofill functionality for the system. Following user input, the system provides recommendations for the optimal movie choice, enriched with relevant movie information such as descriptions, release years, directors, ratings, and more.
@@ -53,7 +57,7 @@ The cleaned dataset comprises 33,402 rows and is stored as "combined_data.csv".
 ## Dependencies Installation and Setup 
 
 ### Initialize Cargo Lambda
-1. Use the command `cargo lambda new <repository name>` to initialize the project.
+1. Use the command `cargo new <repository name>` to initialize the project.
 
 ###  Sign Up for Qdrant and Cohere
 1. Register for Qdrant to create a vector database cluster. Obtain the API key and cluster URL.
